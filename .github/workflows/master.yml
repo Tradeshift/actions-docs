@@ -1,0 +1,24 @@
+name: 'master'
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            npm-
+      - run: |
+          npm ci
+          npm run build
+          npm run format-check
+          npm run lint
+          npm run package
+          npm run test

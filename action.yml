@@ -1,0 +1,26 @@
+name: 'docs action'
+description: 'builds and pushes docs'
+author: 'Tradeshift'
+inputs:
+  artifact-name:
+    required: false
+    description: name of the docs artifact. default to repo name
+  path:
+    required: true
+    description: 'path to documentation file. default: docs/openapi.yaml'
+    default: 'docs/openapi.yaml'
+  version:
+    required: false
+    description: 'version of the doc. default to github version'
+  doc-builder-version:
+    required: true
+    description: version of the doc builder
+    default: 'b6f2e363dcc071917fd873fb035d1d47e77b0835'
+  verbose:
+    required: true
+    description: 'turn on more log from dock builder'
+    default: false
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
+  post: 'dist/index.js'
