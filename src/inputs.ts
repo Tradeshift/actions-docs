@@ -7,6 +7,9 @@ export interface Inputs {
   version: string;
   docBuilderVersion: string;
   verbose: boolean;
+  awsAccount: string;
+  awsRole: string;
+  awsSessionName: string;
 }
 
 export async function getInputs(): Promise<Inputs> {
@@ -15,7 +18,10 @@ export async function getInputs(): Promise<Inputs> {
     path: getInput('path'),
     version: getInput('version'),
     docBuilderVersion: getInput('doc-builder-version'),
-    verbose: getInput('verbose') === 'true'
+    verbose: getInput('verbose') === 'true',
+    awsAccount: getInput('aws-account'),
+    awsRole: getInput('aws-role'),
+    awsSessionName: getInput('aws-session-name')
   };
 
   if (inputs.name === '') {

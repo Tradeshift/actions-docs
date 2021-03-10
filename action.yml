@@ -20,6 +20,15 @@ inputs:
     required: true
     description: 'turn on more log from dock builder'
     default: false
+  aws-account:
+    required: true
+    description: 'aws account to work with'
+  aws-role:
+    required: true
+    description: 'aws role to assume'
+  aws-session-name:
+    required: true
+    description: 'aws session name to use '
 runs:
   using: 'node12'
   main: 'dist/index.js'

@@ -2,6 +2,60 @@ require('./sourcemap-register.js');module.exports =
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 5981:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getAWSCreds = void 0;
+const io_1 = __nccwpck_require__(7436);
+const actions_exec_1 = __nccwpck_require__(291);
+function getCLI() {
+    return __awaiter(this, void 0, void 0, function* () {
+        return io_1.which('aws', true);
+    });
+}
+function getAWSCreds(awsAccount, awsRole, awsSessionName) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const cli = yield getCLI();
+        const res = yield actions_exec_1.exec(cli, [
+            'sts',
+            'assume-role',
+            '--role-arn',
+            `arn:aws:iam::${awsAccount}:role/${awsRole}`,
+            '--role-session-name',
+            `${awsSessionName}`
+        ], true);
+        if (res.stderr !== '' && !res.success) {
+            throw new Error(res.stderr);
+        }
+        else if (res.stderr !== '') {
+            throw new Error(res.stderr);
+        }
+        const output = JSON.parse(res.stdout);
+        const result = {
+            accessKey: output.Credentials.SecretAccessKey,
+            accessKeyID: output.Credentials.AccessKeyId,
+            sessionID: output.Credentials.SessionToken
+        };
+        return result;
+    });
+}
+exports.getAWSCreds = getAWSCreds;
+
+
+/***/ }),
+
 /***/ 9713:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -39,18 +93,25 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.build = void 0;
 const actions_exec_1 = __nccwpck_require__(291);
 const path = __importStar(__nccwpck_require__(5622));
-const core = __importStar(__nccwpck_require__(2186));
+const aws_1 = __nccwpck_require__(5981);
 function build(inputs) {
     return __awaiter(this, void 0, void 0, function* () {
         const currentDir = yield actions_exec_1.exec('pwd', [], false);
         if (!currentDir.success) {
             throw new Error(`unable to fetch current dir path: ${currentDir.stderr}`);
         }
+        const awsCreds = yield aws_1.getAWSCreds(inputs.awsAccount, inputs.awsRole, inputs.awsSessionName);
         const dockerParams = [
             'run',
             '--rm',
             '--volume',
             `${currentDir.stdout}:/temp`,
+            '--env',
+            `AWS_ACCESS_KEY_ID=${awsCreds.accessKeyID}`,
+            '--env',
+            `AWS_SECRET_ACCESS_KEY=${awsCreds.accessKey}`,
+            '--env',
+            `AWS_SESSION_TOKEN=${awsCreds.sessionID}`,
             `eu.gcr.io/tradeshift-base/doc-builder:${inputs.docBuilderVersion}`,
             `${path.join('/temp', inputs.path)}`,
             '--name',
@@ -62,9 +123,7 @@ function build(inputs) {
         if (inputs.verbose) {
             dockerParams.push('--verbose');
         }
-        core.info('docker params');
-        core.info(dockerParams.toString());
-        const result = yield actions_exec_1.exec('docker', dockerParams, false);
+        const result = yield actions_exec_1.exec('docker', dockerParams, true);
         if (!result.success) {
             throw new Error(`unable to upload docs: ${result.stderr}`);
         }
@@ -100,7 +159,10 @@ function getInputs() {
             path: core_1.getInput('path'),
             version: core_1.getInput('version'),
             docBuilderVersion: core_1.getInput('doc-builder-version'),
-            verbose: core_1.getInput('verbose') === 'true'
+            verbose: core_1.getInput('verbose') === 'true',
+            awsAccount: core_1.getInput('aws-account'),
+            awsRole: core_1.getInput('aws-role'),
+            awsSessionName: core_1.getInput('aws-session-name')
         };
         if (inputs.name === '') {
             inputs.name = github_1.context.repo.repo;
@@ -4907,15 +4969,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.exec = void 0;
 const exec_1 = __nccwpck_require__(1514);
-const core_1 = __nccwpck_require__(2186);
 function exec(command, args = [], silent, stdin) {
     return __awaiter(this, void 0, void 0, function* () {
         let stdout = '';
         let stderr = '';
-        core_1.debug(`Executing: ${command} ${args.join(' ')}`);
-        if (stdin) {
-            core_1.debug(`Stdin: ${stdin}`);
-        }
         const options = {
             silent,
             ignoreReturnCode: true,
