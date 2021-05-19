@@ -1,0 +1,15 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: actions-docs
+  description: |
+    This action builds and pushes latest docs to docs s3 storage
+  annotations:
+    github.com/project-slug: Tradeshift/actions-docs
+  tags:
+    - typescript
+    - github-action
+spec:
+  type: library
+  owner: developer-productivity
+  lifecycle: production
