@@ -1,9 +1,17 @@
 version: 2
+registries:
+  npm-tradeshift:
+    type: npm-registry
+    url: 'https://npm.pkg.github.com'
+    token: ${{secrets.NPM_READ_TOKEN}}
+
 updates:
   # Enable version updates for npm
   - package-ecosystem: 'npm'
     # Look for `package.json` and `lock` files in the `root` directory
     directory: '/'
+    registries:
+      - npm-tradeshift
     # Check the npm registry for updates every day (weekdays)
     schedule:
       interval: 'daily'
