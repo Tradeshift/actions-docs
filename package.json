@@ -32,7 +32,7 @@
     "@actions/io": "^1.1.1",
     "@actions/tool-cache": "^1.7.1",
     "@tradeshift/actions-exec": "^1.0.2",
-    "csv-parse": "^4.16.3",
+    "csv-parse": "^5.0.1",
     "path": "^0.12.7",
     "semver": "^7.3.5",
     "uuid": "^8.3.2"
