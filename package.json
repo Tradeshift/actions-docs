@@ -1,8 +1,8 @@
 {
-  "name": "typescript-action",
+  "name": "@tradeshift/actions-docs",
   "version": "0.0.0",
   "private": true,
-  "description": "TypeScript template action",
+  "description": "This action builds and pushes latest docs to docs s3 storage",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -15,12 +15,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/tradeshift/actions-docs.git"
   },
   "keywords": [
     "actions",
     "node",
-    "setup"
+    "docs"
   ],
   "author": "",
   "license": "MIT",
