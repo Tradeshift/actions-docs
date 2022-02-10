@@ -30,6 +30,6 @@ inputs:
     required: true
     description: 'aws session name to use '
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'dist/index.js'
   post: 'dist/index.js'
