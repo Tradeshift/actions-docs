@@ -7,8 +7,8 @@ metadata:
   annotations:
     github.com/project-slug: Tradeshift/actions-docs
   tags:
-    - typescript
     - github-action
+    - nodejs
 spec:
   type: library
   owner: developer-productivity
