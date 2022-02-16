@@ -4,6 +4,7 @@
         "Developer productivity"
     ],
     "topics": [
-        "github-action"
+        "github-action",
+        "nodejs"
     ]
 }
