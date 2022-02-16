@@ -1,1 +1,9 @@
-{"description": "GHA for building and publishing Tradeshift docs", "maintainers": ["Developer productivity"]}
+{
+    "description": "GHA for building and publishing Tradeshift docs",
+    "maintainers": [
+        "Developer productivity"
+    ],
+    "topics": [
+        "github-action"
+    ]
+}
