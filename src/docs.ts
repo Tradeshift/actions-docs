@@ -1,11 +1,12 @@
 import {Inputs} from './inputs';
-import {exec} from '@tradeshift/actions-exec';
+import * as exec from '@actions/exec';
+import {info} from '@actions/core';
 import * as path from 'path';
 import {getAWSCreds} from './aws';
 
 export async function build(inputs: Inputs): Promise<void> {
-  const currentDir = await exec('pwd', [], false);
-  if (!currentDir.success) {
+  const currentDir = await exec.getExecOutput('pwd');
+  if (currentDir.exitCode) {
     throw new Error(`unable to fetch current dir path: ${currentDir.stderr}`);
   }
 
@@ -39,8 +40,8 @@ export async function build(inputs: Inputs): Promise<void> {
     dockerParams.push('--verbose');
   }
 
-  const result = await exec('docker', dockerParams, true);
-  if (!result.success) {
+  const result = await exec.getExecOutput('docker', dockerParams);
+  if (result.exitCode) {
     throw new Error(`unable to upload docs: ${result.stderr}`);
   }
 }
