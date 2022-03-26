@@ -1,6 +1,5 @@
 import {which} from '@actions/io';
-import {exec} from '@tradeshift/actions-exec';
-
+import * as exec from '@actions/exec';
 async function getCLI(): Promise<string> {
   return which('aws', true);
 }
@@ -17,21 +16,15 @@ export async function getAWSCreds(
   awsSessionName: string
 ): Promise<AWSCreds> {
   const cli = await getCLI();
-  const res = await exec(
-    cli,
-    [
-      'sts',
-      'assume-role',
-      '--role-arn',
-      `arn:aws:iam::${awsAccount}:role/${awsRole}`,
-      '--role-session-name',
-      `${awsSessionName}`
-    ],
-    true
-  );
-  if (res.stderr !== '' && !res.success) {
-    throw new Error(res.stderr);
-  } else if (res.stderr !== '') {
+  const res = await exec.getExecOutput(cli, [
+    'sts',
+    'assume-role',
+    '--role-arn',
+    `arn:aws:iam::${awsAccount}:role/${awsRole}`,
+    '--role-session-name',
+    `${awsSessionName}`
+  ]);
+  if (res.exitCode) {
     throw new Error(res.stderr);
   }
 
