@@ -19,7 +19,7 @@ export async function build(inputs: Inputs): Promise<void> {
     'run',
     '--rm',
     '--volume',
-    `${currentDir.stdout}:/temp`,
+    `${currentDir.stdout.trim()}:/temp`,
     '--env',
     `AWS_ACCESS_KEY_ID=${awsCreds.accessKeyID}`,
     '--env',
