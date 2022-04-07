@@ -13,7 +13,7 @@ inputs:
     description: 'version of the doc. default to github version'
   doc-builder-version:
     description: version of the doc builder
-    default: 'b6f2e363dcc071917fd873fb035d1d47e77b0835'
+    default: 'e38e909219cddc1b5d26ba345d6df812929f15d7'
   verbose:
     description: 'turn on more log from dock builder'
     default: false
