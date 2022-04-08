@@ -53,7 +53,7 @@ function getAWSCreds(awsAccount, awsRole, awsSessionName) {
             `arn:aws:iam::${awsAccount}:role/${awsRole}`,
             '--role-session-name',
             `${awsSessionName}`
-        ]);
+        ], { silent: true });
         if (res.exitCode) {
             throw new Error(res.stderr);
         }
