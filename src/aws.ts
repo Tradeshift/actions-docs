@@ -16,14 +16,18 @@ export async function getAWSCreds(
   awsSessionName: string
 ): Promise<AWSCreds> {
   const cli = await getCLI();
-  const res = await exec.getExecOutput(cli, [
-    'sts',
-    'assume-role',
-    '--role-arn',
-    `arn:aws:iam::${awsAccount}:role/${awsRole}`,
-    '--role-session-name',
-    `${awsSessionName}`
-  ]);
+  const res = await exec.getExecOutput(
+    cli,
+    [
+      'sts',
+      'assume-role',
+      '--role-arn',
+      `arn:aws:iam::${awsAccount}:role/${awsRole}`,
+      '--role-session-name',
+      `${awsSessionName}`
+    ],
+    {silent: true}
+  );
   if (res.exitCode) {
     throw new Error(res.stderr);
   }
