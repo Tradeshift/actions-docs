@@ -27,7 +27,7 @@
   "dependencies": {
     "@actions/core": "^1.6.0",
     "@actions/exec": "^1.1.0",
-    "@actions/github": "^5.0.0",
+    "@actions/github": "^5.0.3",
     "@actions/http-client": "^1.0.11",
     "@actions/io": "^1.1.1",
     "@actions/tool-cache": "^1.7.1",
@@ -46,7 +46,7 @@
     "@vercel/ncc": "^0.33.1",
     "eslint": "^7.32.0",
     "eslint-plugin-github": "^4.3.2",
-    "eslint-plugin-jest": "^25.3.4",
+    "eslint-plugin-jest": "^26.4.6",
     "jest": "^27.4.7",
     "jest-circus": "^27.4.6",
     "js-yaml": "^4.1.0",
