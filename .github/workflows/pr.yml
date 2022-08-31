@@ -25,5 +25,3 @@ jobs:
           npm run lint
           npm run package
           npm run test
-      - name: Check for changes (fail if we forgot to update lib output)
-        run: git diff --quiet dist
