@@ -8,6 +8,10 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+      - name: Set-up Node with .nvmrc
+        uses: actions/setup-node@v2
+        with:
+          node-version-file: '.nvmrc'
       - uses: actions/cache@v2
         with:
           path: ~/.npm
@@ -21,5 +25,3 @@ jobs:
           npm run lint
           npm run package
           npm run test
-      - name: Check for changes (fail if we forgot to update lib output)
-        run: git diff --quiet dist
