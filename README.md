@@ -13,7 +13,7 @@ The following are a few different usage examples
 ```yaml
 jobs:
   docs:
-    runs-on: self-hosted
+    runs-on: [self-hosted,ts-large-x64-docker-large]
     steps:
       - uses: actions/checkout@v2
       - uses: tradeshift/actions-docs@v1
