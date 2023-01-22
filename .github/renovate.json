@@ -10,6 +10,7 @@
       "npm run --if-present build",
       "npm run --if-present package"
     ],
-    "executionMode": "branch"
+    "executionMode": "branch",
+    "fileFilters": ["**/*"]
   }
 }
