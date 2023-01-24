@@ -1,7 +1,9 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "local>Tradeshift/renovate-config:config-github-action"
+    "Tradeshift/renovate-config:config-github-action",
+    "Tradeshift/renovate-config:automerge-minor",
+    "Tradeshift/renovate-config:automerge-dev-deps"
   ],
   "postUpgradeTasks": {
     "commands": [
