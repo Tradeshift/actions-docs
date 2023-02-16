@@ -26,7 +26,7 @@ export async function build(inputs: Inputs): Promise<void> {
     `AWS_SECRET_ACCESS_KEY=${awsCreds.accessKey}`,
     '--env',
     `AWS_SESSION_TOKEN=${awsCreds.sessionID}`,
-    `eu.gcr.io/tradeshift-base/doc-builder:${inputs.docBuilderVersion}`,
+    `063399264027.dkr.ecr.eu-west-1.amazonaws.com/tradeshift-base/doc-builder:${inputs.docBuilderVersion}`,
     `${path.join('/temp', inputs.path)}`,
     '--name',
     `${inputs.name}`,
