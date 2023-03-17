@@ -1,18 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "Tradeshift/renovate-config:config-github-action",
-    "Tradeshift/renovate-config:automerge-minor",
-    "Tradeshift/renovate-config:automerge-dev-deps"
-  ],
-  "postUpgradeTasks": {
-    "commands": [
-      "npm ci --ignore-scripts",
-      "npm run --if-present format",
-      "npm run --if-present build",
-      "npm run --if-present package"
-    ],
-    "executionMode": "branch",
-    "fileFilters": ["**/*"]
-  }
+    "local>Tradeshift/renovate-config:automerge-all"
+  ]
 }
