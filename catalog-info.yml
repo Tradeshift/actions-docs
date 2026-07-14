@@ -11,5 +11,5 @@ metadata:
     - nodejs
 spec:
   type: library
-  owner: partner-enablement-and-apps
+  owner: sre
   lifecycle: production
