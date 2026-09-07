@@ -1,7 +1,7 @@
 {
     "description": "GHA for building and publishing Tradeshift docs",
     "maintainers": [
-        "partner-enablement-and-apps"
+        "sre"
     ],
     "topics": [
         "github-action",
