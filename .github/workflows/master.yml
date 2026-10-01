@@ -20,7 +20,7 @@ jobs:
           restore-keys: |
             npm-
       - run: |
-          npm ci
+          npm ci --ignore-scripts
           npm run build
           npm run format-check
           npm run lint
