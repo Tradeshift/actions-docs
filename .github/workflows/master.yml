@@ -6,14 +6,14 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
       - name: Set-up Node with .nvmrc
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7.1.0
         with:
           node-version-file: '.nvmrc'
-      - uses: actions/cache@v5
+      - uses: actions/cache@v6.1.0
         with:
           path: ~/.npm
           key: npm-${{ hashFiles('package-lock.json') }}
@@ -34,12 +34,12 @@ jobs:
       - name: Set up commit signing w/ GPG
         if: ${{ steps.diff.outcome != 'success' }}
         id: configure
-        uses: tradeshift/actions-git/configure-from-gpg-key@v1
+        uses: tradeshift/actions-git/configure-from-gpg-key@v1.0.2
         with:
           gpg-key: ${{ secrets.TRADESHIFTCI_GPG_KEY }}
 
       - name: PR build changes if needed
-        uses: tradeshift/create-pull-request@v8
+        uses: tradeshift/create-pull-request@v8.1.1
         if: ${{ steps.diff.outcome != 'success' }}
         with:
           commit-message: "build: update dist folder"
@@ -63,8 +63,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
-      - uses: actions/checkout@v7
-      - uses: tradeshift/actions-semantic-release@v2
+      - uses: actions/checkout@v7.0.1
+      - uses: tradeshift/actions-semantic-release@v2.1.0
         id: semantic-release
         with:
           check_name: Semantic release
